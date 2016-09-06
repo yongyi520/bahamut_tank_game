@@ -22,3 +22,4 @@ accounts-base
 accounts-password
 
 fourseven:scss@=3.8.0_1
+accounts-ui

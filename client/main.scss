@@ -1,0 +1,170 @@
+$nav_bar_bg: #020e15;
+$font: #e9eef2;
+$border: #8b9dc3;
+$chat_room_font: #232323;
+$white: #FFFFFF;
+$black: #000000;
+$yellow: yellow;
+
+$game_board_bg: #232323;
+$chat_room_bg: #e9eef2;
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.nav_bar {
+  width: 250px;
+  list-style: none;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+  background-color: $nav_bar_bg;
+  color: $font;
+  border: 1px solid $border;
+  padding-top: 2em;
+  padding-left: 1em;
+  .logo {
+    margin-bottom: 2em;
+  }
+  .welcome {
+    margin: 2em 0;
+  }
+  .game_room {
+    .title {
+      font-weight: 700;
+    }
+    .room_list {
+      list-style-type: none;
+      a {
+        text-decoration: none;
+        color: $font;
+      }
+    }
+  }
+  .user {
+    a {
+      text-decoration: none;
+      color: $font;
+    }
+  }
+}
+
+#main_body {
+  margin-left: 250px;
+  .content {
+    width: 100%;
+    height: 95vh;
+    .game_board {
+      border: 1px solid $border;
+      height: 100%;
+      width: 100%;
+      background-color: $game_board_bg;
+      color: $font;
+      .game_room_title {
+        position: relative;
+        width: 100%;
+        height: 10%;
+        display: table;
+        span {
+          display: table-cell;
+          margin: 0 auto;
+          vertical-align: middle;
+          text-align: center;
+          font-weight: 700;
+        }
+      }
+      .game_screen {
+        height: 70%;
+        background-color: $black;
+        position: relative;
+      }
+      .game_controls {
+        position: relative;
+        height: 20%;
+        display: table;
+        width: 100%;
+        .directional_buttons {
+          display: table-cell;
+          vertical-align: middle;
+          width: 50%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .action_buttons {
+          display: table-cell;
+          vertical-align: middle;
+          width: 50%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        i {
+          padding: 5px;
+        }
+        .active_button {
+          background: $yellow;
+          color: $black;
+        }
+      }
+    }
+    .chat_room {
+      display: none;
+      position: relative;
+      border: 1px solid $border;
+      width: 20%;
+      height: 100%;
+      background-color: $chat_room_bg;
+      color: $chat_room_font;
+      .chat_room_title {
+        width: 100%;
+        height: 10%;
+        display: table;
+        span {
+          display: table-cell;
+          margin: 0 auto;
+          vertical-align: middle;
+          text-align: center;
+          font-weight: 700;
+        }
+      }
+      .messages {
+        height: 70%;
+      }
+      .message_input {
+        height: 20%;
+        input[type="textarea"] {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  height: 5vh;
+  background-color: $black;
+}

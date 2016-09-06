@@ -1,0 +1,47 @@
+.cell {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid green;
+  position: absolute;
+}
+
+.fireBox {
+  margin:80px auto;
+  width: 60px;
+  height: 60px;
+  position:relative;
+  transform-origin:center bottom;
+  animation-name: flicker;
+  animation-duration:3ms;
+  animation-delay:200ms;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  .flame{
+    bottom:0;
+    position:absolute;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+    transform:rotate(-45deg) scale(1.5,1.5);
+  }
+
+  .red {
+    left:1px;
+    width: 20px;
+    height: 20px;
+    background:OrangeRed;
+    box-shadow: 0 0 5px 4px OrangeRed;
+  }
+
+  .yellow{
+    left:3px;
+    width: 6px;
+    height: 6px;
+    background:gold;
+    box-shadow: 0 0 9px 4px gold;
+  }
+}
