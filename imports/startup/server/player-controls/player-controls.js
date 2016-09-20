@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-	'move-forward': function(){
-		var user = Meteor.user();
+	'move-forward': function(id, messages){
+		var user = messages.user;
 		// assuming that:
 		// x = 1 means it's facing right
 		// x = 0 means it's not facing in horizontal directino
@@ -17,9 +17,10 @@ Meteor.methods({
 			var newX = user.position.x + user.orientation.x;
 			Meteor.users.update(Meteor.userId(), {$set: {"position.x": newX}});
 		}
+
 		return user;
-	},'move-backward': function(){
-		var user = Meteor.user();
+	},'move-backward': function(id, messages){
+		var user = messages.user;
 		// assuming that:
 		// x = 1 means it's facing right
 		// x = 0 means it's not facing in horizontal directino
@@ -34,9 +35,10 @@ Meteor.methods({
 			var newX = user.position.x - user.orientation.x;
 			Meteor.users.update(Meteor.userId(), {$set: {"position.x": newX}});
 		}
+
 		return user;
-	},'rotate-left': function(){
-		var user = Meteor.user();
+	},'rotate-left': function(id, messages){
+		var user = messages.user;
 		// assuming that:
 		// x = 1 means it's facing right
 		// x = 0 means it's not facing in horizontal directino
@@ -53,9 +55,10 @@ Meteor.methods({
 			var newY = user.orientation.x;
 			Meteor.users.update(Meteor.userId(), {$set: {"orientation.x": newX, "orientation.y": newY}});
 		}
+
 		return user;
-	},'rotate-right': function(){
-		var user = Meteor.user();
+	},'rotate-right': function(id, messages){
+		var user = messages.user;
 		// assuming that:
 		// x = 1 means it's facing right
 		// x = 0 means it's not facing in horizontal directino
@@ -72,9 +75,10 @@ Meteor.methods({
 			var newY = -1 * user.orientation.x;
 			Meteor.users.update(Meteor.userId(), {$set: {"orientation.x": newX, "orientation.y": newY}});
 		}
+
 		return user;
-	}, 'fire-bomb' : function() {
-		var user = Meteor.user();
+	}, 'fire-storm' : function(id, messages) {
+		var user = messages.user;
 		var otherPlayers = Meteor.users.find().fetch();
 		var fireCenterX, fireCenterY, distanceFromFireX, distanceFromFireY;
 		if (user.orientation.x == 0) {
@@ -96,8 +100,8 @@ Meteor.methods({
 		});
 
 		return false;
-	}, 'wind-push' : function() {
-		var user = Meteor.user();
+	}, 'wind-push' : function(id, messages) {
+		var user = messages.user;
 		
 		var otherPlayers = Meteor.users.find().fetch();
 		var distanceFromUserX, distanceFromUserY, newPositionX, newPositionY, inFront, how;
@@ -107,6 +111,7 @@ Meteor.methods({
 				distanceFromUserX = player.position.x - user.position.x;
 				distanceFromUserY = player.position.y - user.position.y;
 				inFront = distanceFromUserY*user.orientation.y>0;
+				console.log(player.username + " " + "distanceFromUserX: " + distanceFromUserX + ", " + "distanceFromUserY: " + distanceFromUserY);
 				if (Math.abs(distanceFromUserX) <= 1 && inFront){
 					newPositionY = player.position.y + user.orientation.y * 3;
 					Meteor.users.update(player._id, {$set: {"position.y": newPositionY}});
@@ -125,8 +130,42 @@ Meteor.methods({
 			});
 			Meteor.users.update(Meteor.userId(), {$set: {"position.x": user.position.x - user.orientation.x}});
 		}
+
 		return otherPlayers;
+	}, 'add-firestorm-message': function() {
+
+		ServerMessages.insert({
+			type: 'fire-storm',
+			user: Meteor.user()
+		});
+		return true;
+	}, 'add-wind-push-message': function(){
+		ServerMessages.insert({
+			type: 'wind-push',
+			user: Meteor.user()
+		})
+	}, 'add-move-forward-message': function(){
+		ServerMessages.insert({
+			type: 'move-forward',
+			user: Meteor.user()
+		});
+	}, 'add-move-backward-message': function(){
+		ServerMessages.insert({
+			type: 'move-backward',
+			user: Meteor.user()
+		})
+	}, 'add-rotate-left-message': function(){
+		ServerMessages.insert({
+			type: 'rotate-left',
+			user: Meteor.user()
+		})
+	}, 'add-rotate-right-message': function(){
+		ServerMessages.insert({
+			type: 'rotate-right',
+			user: Meteor.user()
+		})
 	}
+
 });
 
 
