@@ -147,8 +147,13 @@ h1, h2, h3, h4, h5, h6, p {
           background:OrangeRed;
           box-shadow: 0px 0px 1px 1px OrangeRed;
         }
+        .wind_push_container {
+        }
         .wind {
-          background-image: url('/assets/images/wind.png');
+          position: absolute;
+          background-size:cover;
+          width: 20px;
+          height: 20px;
         }
       }
       .game_controls {

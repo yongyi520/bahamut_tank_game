@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+// import TimelineLite from 'gsap';
 
 export default class FireStorm extends Component {
 
@@ -11,6 +12,8 @@ export default class FireStorm extends Component {
     }
 
     setAnimation(){
+        serverMessageOnPause = true;
+
         startingEndingPositions = this.getStartingAndEndingPoint();
         t1 = new TimelineLite();
         xDif = startingEndingPositions.startingX - startingEndingPositions.endingX;
@@ -40,18 +43,17 @@ export default class FireStorm extends Component {
             autoAlpha: 0
         }).to(this.refs.fireStorm, .5, {
             autoAlpha: 1,
-            onComplete: this.destroyPlayers,
-            onCompleteParams: [this.props.id, this.props.message]
+            onComplete: () => { this.destroyPlayers(this.props.id, this.props.message) }
         }).to(this.refs.fireStorm, .5, {
             autoAlpha: 0
         });
-
     }
 
     destroyPlayers(id, message){
         if(message.user._id == Meteor.userId()) {
             Meteor.call('fire-storm', id, message);
         }
+        serverMessageOnPause = false;
     }
 
     getStyle(startingEndingPositions, indexFireX, indexFireY){

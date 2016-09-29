@@ -12,3 +12,4 @@ import './main.html';
 messageCollection = new Mongo.Collection("serverMessages");
 Meteor.subscribe("serverMessages");
 
+serverMessageOnPause = false;
